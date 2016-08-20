@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="TraectoriesHx" package="com.sample.traectorieshx" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="TraectoriesHx" />
+	
+	<source path="src" />
+	
+	<haxelib name="openfl" />
+    <haxelib name="minject" />
+	
+	<assets path="Assets" rename="assets" />
+	
+</project>
