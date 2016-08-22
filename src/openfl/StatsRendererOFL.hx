@@ -1,7 +1,8 @@
-package stats;
+package openfl;
+import info.StatsRenderer;
 import flash.text.TextField;
 import openfl.display.Sprite;
-class StatsRenderer extends Sprite {
+class StatsRendererOFL extends Sprite implements StatsRenderer {
 	var searchIterations:TextField;
 	var searchesFailedCount:TextField;
 	var objectHits:TextField;

@@ -1,4 +1,5 @@
-package stats;
+package info;
+import info.StatsRenderer;
 class Stats {
 	@inject public var statsRenderer:StatsRenderer;
 

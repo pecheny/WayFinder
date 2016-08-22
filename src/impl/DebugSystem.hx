@@ -1,8 +1,8 @@
 package impl;
-import stats.Stats;
+import renderer.DebugRenderer;
+import info.Stats;
 import data.UnitRadius;
 import traectory.Traectory;
-import renderer.DebugRenderer;
 class DebugSystem {
 	@inject public var stats:Stats;
 	@inject public var world:World;

@@ -1,6 +1,6 @@
 package impl;
 import traectory.TraectoryBuilder;
-import stats.Stats;
+import info.Stats;
 import traectory.Traectory;
 class TraectorySpawner {
 	@inject public var world:World;

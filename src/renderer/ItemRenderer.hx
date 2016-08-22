@@ -1,4 +1,4 @@
 package renderer;
-interface Renderer {
+interface ItemRenderer {
 	function update(t:Float):Void;
 }

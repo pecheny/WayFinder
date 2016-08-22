@@ -1,5 +1,5 @@
 package impl;
-import stats.Stats;
+import info.Stats;
 import traectory.Traectory;
 /*
 	хранит состояние всех живых объектов, следит за утилизацией, проверяет, насколько вписывается новая траектория в комплект уже имеющихся.

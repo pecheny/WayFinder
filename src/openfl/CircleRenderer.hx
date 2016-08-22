@@ -1,9 +1,9 @@
-package renderer;
+package openfl;
 import impl.World;
 import data.UnitRadius;
-import renderer.Renderer;
+import renderer.ItemRenderer;
 import openfl.display.Sprite;
-class CircleRenderer extends Sprite implements Renderer {
+class CircleRenderer extends Sprite implements ItemRenderer {
 	@inject public var unitRadius:UnitRadius;
 	@inject public var world:World;
 
