@@ -38,6 +38,7 @@ class StatsRendererOFL extends Sprite implements StatsRenderer {
 		tf.x = 10;
 		tf.width = 200;
 		tf.textColor = 0xffffff;
+		tf.mouseEnabled = false;
 		mheight += 16;
 		updateBg();
 		addChild(tf);
@@ -72,7 +73,11 @@ class StatsRendererOFL extends Sprite implements StatsRenderer {
 	}
 
 	public function setDelay(v:Float):Void {
-		delay.text = "" + v + " задержка между попытками" ;
+		delay.text = "" + round(v, 6) + " задержка между попытками" ;
 	}
 
+	public static function round(number:Float, precision = 2):Float {
+		number *= Math.pow(10, precision);
+		return Math.round(number) / Math.pow(10, precision);
+	}
 }

@@ -124,11 +124,11 @@ class Main extends Sprite {
 		switch (e.keyCode) {
 			case Keyboard.SPACE : world.add(trajectorySpawner.choose(t));
 			case Keyboard.MINUS : {
-				delay = Math.max(delay - 0.001, 0.001);
+				delay = Math.max(delay * 0.9, 0.00001);
 				stats.delay = delay;
 			}
 			case Keyboard.EQUAL : {
-				delay += 0.01;
+				delay *= (10/9);
 				stats.delay = delay;
 			}
 
