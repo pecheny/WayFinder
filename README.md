@@ -30,8 +30,17 @@
 
 [Генератор круглых траекторий](https://github.com/pecheny/WayFinder/blob/master/src/trajectory/circle/CircleBuilder.hx)
 
-[Генератор приямых траекторий](https://github.com/pecheny/WayFinder/blob/master/src/trajectory/line/LineBuilder.hx)
+[Генератор прямых траекторий](https://github.com/pecheny/WayFinder/blob/master/src/trajectory/line/LineBuilder.hx)
 
 [Генератор произвольных траекторий](https://github.com/pecheny/WayFinder/blob/master/src/trajectory/RandomTrajectoryBuilder.hx)
 
 [Проверка столкновений](https://github.com/pecheny/WayFinder/blob/master/src/impl/DebugSystem.hx)
+
+### Версии зависимостей
+
+```
+lime: [2.9.1] 3.0.3
+minject: [1.6.1] 
+openfl: [3.6.1] 4.0.3
+```
+
