@@ -23,4 +23,13 @@ class LineTraectory implements Traectory {
 		return startY + (t - period.t1) * speedY;
 	}
 
+	public function getTbyY(y:Float):Float {
+		return period.t1 + (y - startY) / speedY;
+	}
+
+	public function toString():String {
+//		return "Line : [ x: " + startX  + " y: " + startY  + " sx " + speedX  + " sy: " + speedY  + " " + period  + " ]";
+		return "Line : (  " + startX  + ", " + startY  + ", " + speedX  + ", " + speedY  + ", " + period  + " ]";
+	}
+
 }

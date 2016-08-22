@@ -2,7 +2,8 @@
 <project>
 	
 	<meta title="TraectoriesHx" package="com.sample.traectorieshx" version="1.0.0" company="Company Name" />
-	<app main="Main" path="Export" file="TraectoriesHx" />
+	<app main="Main" path="Export" file="TraectoriesHx" background="909090" />
+    <window background="#303030" />
 	
 	<source path="src" />
 	

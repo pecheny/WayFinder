@@ -1,6 +1,5 @@
-package trImpl;
-
-class UnitRadius {
+package trImpl.data;
+class Speed {
 	public var value(default, null):Float;
 
 	public function new(val:Float) {

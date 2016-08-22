@@ -1,5 +1,5 @@
 package traectory;
-import renderer.CommonRenderer;
+import trImpl.data.Speed;
 import math.Range;
 import math.Rect;
 class LineBuilder {
@@ -7,8 +7,7 @@ class LineBuilder {
 	}
 
 	@inject public var worldRect:Rect;
-	@inject public var commonRenderer:CommonRenderer;
-	var s = 100;
+	@inject public var speed:Speed;
 
 	var t:Float;
 	var x1:Float;
@@ -16,17 +15,21 @@ class LineBuilder {
 	var odd:Bool;
 
 	public function init(t:Float, odd:Bool):Void {
-//		x1 = Math.random() * worldRect.width();
-//		x2 = Math.random() * (worldRect.width());
 		this.t = t;
 		this.odd = odd;
 	}
 
 
+	var bias:Float = 150;
 	public function roll():Traectory {
-		x1 = Math.random() * worldRect.width();
-		x2 = Math.random() * (worldRect.width());
+		x1 = worldRect.x0 + Math.random() * worldRect.width();
+		x2 = clamp(x1 + Math.random() * (bias) - bias / 2, worldRect.x0, worldRect.x1);
+		return buildLine(x1,x2,t,worldRect,speed.value,odd);
+	}
 
+
+
+	public static inline function buildLine(x1:Float,x2:Float, t0:Float, worldRect:Rect,s:Float,odd:Bool):Traectory {
 		var xSign = x1 > x2 ? -1 : 1;
 		var ySign = odd ? 1 : -1;
 		var dx = x2 - x1;
@@ -38,21 +41,23 @@ class LineBuilder {
 		var sxSq = s * s - sySq;
 
 		var pathLen = Math.sqrt(dxSq + dySq);
-		var period = new Range(t, t + pathLen / s);
+		var period = new Range(t0, t0 + pathLen / s);
 
-		var line = new LineTraectory(x1, worldRect.y0, xSign * Math.sqrt(sxSq), ySign * Math.sqrt(sySq), period);
-
-		trace(line.getX(period.t2) + " " + line.getY(period.t2));
-		drawLine(x1, x2);
+		var line = new LineTraectory(x1, odd ? worldRect.y0 : worldRect.y1, xSign * Math.sqrt(sxSq), ySign * Math.sqrt(sySq), period);
 
 		return line;
 	}
 
-	public function drawLine(x1:Float, x2:Float):Void {
-		if (odd) {
-			commonRenderer.drawLine(x1, x2, worldRect.y0, worldRect.y1);
-		} else {
-			commonRenderer.drawLine(x1, x2, worldRect.y1, worldRect.y0);
+	// в реальном проекте наверняка найдется более подходяще место, но до тех пор,
+	// пока употребление единично и нет дублирования кода, я считаю допустимым не мусорить дополнительными утилитными классами
+	public inline static function clamp(value:Float, min:Float, max:Float):Float
+		{
+		    if (value < min)
+		        return min;
+		    else if (value > max)
+		        return max;
+		    else
+		        return value;
 		}
-	}
+
 }
