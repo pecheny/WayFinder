@@ -40,7 +40,7 @@ class CircleBuilder implements TrajectoryBuilder {
 		(Math.PI * 3 / 2) + Math.asin( (worldRect.height() - yInWorldRectSpace) / r);
 //		trace(startAngle);
 
-		var tr = new CircleTrajectory(x0, y0, r, angSpeed, startAngle, period);
+		var tr = new LeftArcTrajectory(x0, y0, r, angSpeed, startAngle, period);
 		tr.period.t2 = odd ?
 		tr.getTbyY(worldRect.y1):
 		tr.getTbyY(worldRect.y0);

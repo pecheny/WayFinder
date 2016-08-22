@@ -1,6 +1,10 @@
 package trajectory.circle;
 import math.Range;
-class CircleTrajectory implements Trajectory {
+/**
+* Траектория полета по окружности. Из соображений экономии времени реализована только поддержка левой половины.
+* Если бы пришлось делать оба варианта, то скорее всего имело бы смысл делать два отдельных класса.
+**/
+class LeftArcTrajectory implements Trajectory {
 	public var period:Range;
 	public var centerX:Float;
 	public var centerY:Float;
@@ -24,8 +28,6 @@ class CircleTrajectory implements Trajectory {
 
 	public function getY(t:Float):Float {
 		var angle = startAngle + (t - period.t1) * angularSpeed;
-//		trace("a " + angle + " " + (Math.acos(Math.cos(angle))));
-
 		return centerY + radius * Math.cos(angle);
 	}
 
@@ -35,9 +37,6 @@ class CircleTrajectory implements Trajectory {
 			2 * Math.PI - Math.acos((y - centerY) / radius) - startAngle
 		else
 			Math.PI + Math.acos((centerY - y) / radius) - startAngle;
-
-
-//		trace("ang " + angle);
 		return (angle / angularSpeed) + period.t1;
 	}
 
