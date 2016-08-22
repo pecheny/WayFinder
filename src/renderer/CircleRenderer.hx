@@ -1,6 +1,6 @@
 package renderer;
-import trImpl.World;
-import trImpl.data.UnitRadius;
+import impl.World;
+import data.UnitRadius;
 import renderer.Renderer;
 import openfl.display.Sprite;
 class CircleRenderer extends Sprite implements Renderer {

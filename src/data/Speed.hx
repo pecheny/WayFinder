@@ -1,4 +1,4 @@
-package trImpl.data;
+package data;
 class Speed {
 	public var value(default, null):Float;
 

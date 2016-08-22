@@ -1,4 +1,4 @@
-package trImpl.stats;
+package stats;
 import flash.text.TextField;
 import openfl.display.Sprite;
 class StatsRenderer extends Sprite {

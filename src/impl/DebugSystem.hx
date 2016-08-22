@@ -1,6 +1,6 @@
-package trImpl;
-import trImpl.stats.Stats;
-import trImpl.data.UnitRadius;
+package impl;
+import stats.Stats;
+import data.UnitRadius;
 import traectory.Traectory;
 import renderer.DebugRenderer;
 class DebugSystem {

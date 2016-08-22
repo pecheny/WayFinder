@@ -1,4 +1,4 @@
-package trImpl.stats;
+package stats;
 class Stats {
 	@inject public var statsRenderer:StatsRenderer;
 

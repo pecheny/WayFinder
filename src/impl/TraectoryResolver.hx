@@ -1,7 +1,7 @@
-package trImpl;
+package impl;
 import renderer.DebugRenderer;
-import trImpl.data.Speed;
-import trImpl.data.UnitRadius;
+import data.Speed;
+import data.UnitRadius;
 import math.Range;
 import traectory.Traectory;
 class TraectoryResolver {

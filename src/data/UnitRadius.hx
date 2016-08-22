@@ -1,4 +1,4 @@
-package trImpl.data;
+package data;
 
 class UnitRadius {
 	public var value(default, null):Float;

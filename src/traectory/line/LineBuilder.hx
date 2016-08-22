@@ -1,8 +1,8 @@
-package traectory;
-import trImpl.data.Speed;
+package traectory.line;
+import data.Speed;
 import math.Range;
 import math.Rect;
-class LineBuilder {
+class LineBuilder implements TraectoryBuilder{
 	public function new() {
 	}
 

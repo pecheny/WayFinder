@@ -1,19 +1,20 @@
 package;
 
 
-import trImpl.stats.Stats;
-import trImpl.TraectoryResolver;
-import trImpl.stats.StatsRenderer;
+import traectory.TraectoryBuilder;
+import stats.Stats;
+import impl.TraectoryResolver;
+import stats.StatsRenderer;
 import flash.ui.Keyboard;
 import math.Range;
-import traectory.LineTraectory;
-import trImpl.data.Speed;
-import trImpl.TraectorySpawner;
-import trImpl.DebugSystem;
-import trImpl.World;
-import trImpl.data.UnitRadius;
+import traectory.line.LineTraectory;
+import data.Speed;
+import impl.TraectorySpawner;
+import impl.DebugSystem;
+import impl.World;
+import data.UnitRadius;
 import flash.Lib;
-import traectory.LineBuilder;
+import traectory.line.LineBuilder;
 import renderer.Renderer;
 import renderer.CircleRenderer;
 import flash.events.KeyboardEvent;
@@ -33,7 +34,7 @@ class Main extends Sprite {
 	var world:World;
 	var unitRenderer:CircleRenderer;
 	var debugSystem:DebugSystem;
-	var lineBuilder:LineBuilder;
+//	var traectoryBuilder:TraectoryBuilder;
 	var traectoryChooser:TraectorySpawner;
 	var injector:Injector;
 	var worldRect:Rect;
@@ -59,8 +60,8 @@ class Main extends Sprite {
 		injector.mapValue(World, world);
 		injector.mapValue(Rect, worldRect);
 		injector.mapValue(Renderer, unitRenderer);
-		injector.mapClass(LineBuilder, LineBuilder);
-		lineBuilder = injector.instantiate(LineBuilder);
+		injector.mapSingletonOf(TraectoryBuilder, LineBuilder);
+//		traectoryBuilder = injector.instantiate(TraectoryBuilder);
 		debugSystem = injector.instantiate(DebugSystem);
 		traectoryChooser = injector.instantiate(TraectorySpawner);
 		unitRenderer = injector.instantiate(CircleRenderer);

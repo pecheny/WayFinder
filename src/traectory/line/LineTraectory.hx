@@ -1,4 +1,4 @@
-package traectory;
+package traectory.line;
 import math.Range;
 class LineTraectory implements Traectory {
 	public var period:Range;
