@@ -1,24 +1,22 @@
 package;
 
 
-import traectory.RandomTraectoryBuilder;
-import math.Range;
-import traectory.circle.CircleTraectory;
-import traectory.circle.CircleBuilder;
+import trajectory.RandomTrajectoryBuilder;
+import trajectory.circle.CircleBuilder;
 import renderer.DebugRenderer;
 import info.StatsRenderer;
-import traectory.TraectoryBuilder;
+import trajectory.TrajectoryBuilder;
 import info.Stats;
-import impl.TraectoryResolver;
+import impl.TrajectoryResolver;
 import openfl.StatsRendererOFL;
 import flash.ui.Keyboard;
 import data.Speed;
-import impl.TraectorySpawner;
+import impl.TrajectorySpawner;
 import impl.DebugSystem;
 import impl.World;
 import data.UnitRadius;
 import flash.Lib;
-import traectory.line.LineBuilder;
+import trajectory.line.LineBuilder;
 import renderer.ItemRenderer;
 import openfl.CircleRenderer;
 import flash.events.KeyboardEvent;
@@ -35,11 +33,16 @@ import openfl.display.Sprite;
  Хотя можно просто обойтись Updater/Updateble. Но здесь kiss/yagni победил solid.
   */
 class Main extends Sprite {
+
+	inline static var RADIUS = 6;
+	inline static var SPEED = 80;
+
+	var injector:Injector;
+
 	var world:World;
 	var unitRenderer:CircleRenderer;
 	var debugSystem:DebugSystem;
-	var traectorySpawner:TraectorySpawner;
-	var injector:Injector;
+	var trajectorySpawner:TrajectorySpawner;
 	var worldRect:Rect;
 	var stats:Stats;
 	var debugRenderer:DebugRendererOFL;
@@ -47,12 +50,13 @@ class Main extends Sprite {
 	public function new() {
 		super();
 		injector = new Injector();
-		var radius = 5;
-		injector.mapValue(UnitRadius, new UnitRadius(radius));
-		injector.mapValue(Speed, new Speed(80));
-//		worldRect = new Rect(radius, -radius, stage.stageWidth - radius * 2, stage.stageHeight + radius);
+
+		injector.mapValue(UnitRadius, new UnitRadius(RADIUS));
+		injector.mapValue(Speed, new Speed(SPEED));
+
+		worldRect = new Rect(RADIUS, -RADIUS, stage.stageWidth - RADIUS * 2, stage.stageHeight + RADIUS); // баунд строго под размеры экрана
 		worldRect = new Rect(100, 100, 700, 500);
-//		worldRect = new Rect(200,200, 280, 260);
+
 		debugRenderer = new DebugRendererOFL();
 		injector.mapValue(DebugRenderer, debugRenderer);
 		var info = new StatsRendererOFL();
@@ -60,21 +64,21 @@ class Main extends Sprite {
 		stats = injector.instantiate(Stats);
 		stats.delay = delay;
 		injector.mapValue(Stats, stats);
-		injector.mapSingleton(TraectoryResolver);
+		injector.mapSingleton(TrajectoryResolver);
 		world = injector.instantiate(World);
 		injector.mapValue(World, world);
 		injector.mapValue(Rect, worldRect);
+		unitRenderer = injector.instantiate(CircleRenderer);
 		injector.mapValue(ItemRenderer, unitRenderer);
+		debugSystem = injector.instantiate(DebugSystem);
 
-		var builder = new RandomTraectoryBuilder();
+// Вот здесь можно как угодно фантазировать на предмет вариантов траекторий, которые будут спаунится, вероятности и пр.
+		var builder = new RandomTrajectoryBuilder();
 		builder.addBuilder(injector.instantiate(LineBuilder));
 		builder.addBuilder(injector.instantiate(CircleBuilder));
 
-
-		injector.mapValue(TraectoryBuilder, builder);
-		debugSystem = injector.instantiate(DebugSystem);
-		traectorySpawner = injector.instantiate(TraectorySpawner);
-		unitRenderer = injector.instantiate(CircleRenderer);
+		injector.mapValue(TrajectoryBuilder, builder);
+		trajectorySpawner = injector.instantiate(TrajectorySpawner);
 
 		addChild(unitRenderer);
 		addChild(debugRenderer);
@@ -82,16 +86,6 @@ class Main extends Sprite {
 
 		stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
-		test();
-	}
-
-	function test():Void {
-//		var c = new CircleTraectory(worldRect.width() / 2, worldRect.height() / 2, worldRect.width() / 3, 0.5, new Range(0, 10));
-		var circleBuilder:CircleBuilder = injector.instantiate(CircleBuilder);
-
-//		world.add(new CircleTraectory(  851.3605526889122, 113.17766010761261, 600, 0.13333333333333333, new Range (40.472, 45.891503047781534)));
-//		world.add(new CircleTraectory(   997.3839691679549, 475.2997713163495, 600, -0.13333333333333333, new Range (45.708, 51.08512804430361)));
-//		world.add(l);
 	}
 
 
@@ -120,7 +114,7 @@ class Main extends Sprite {
 	}
 
 	function spawn() {
-		var tr = traectorySpawner.choose(t);
+		var tr = trajectorySpawner.choose(t);
 		if (tr != null) {
 			world.add(tr);
 		}
@@ -128,7 +122,7 @@ class Main extends Sprite {
 
 	function keyboardHandler(e:KeyboardEvent) {
 		switch (e.keyCode) {
-			case Keyboard.SPACE : world.add(traectorySpawner.choose(t));
+			case Keyboard.SPACE : world.add(trajectorySpawner.choose(t));
 			case Keyboard.MINUS : {
 				delay = Math.max(delay - 0.001, 0.001);
 				stats.delay = delay;
@@ -139,12 +133,7 @@ class Main extends Sprite {
 			}
 
 			case Keyboard.P : paused = !paused;
-			case Keyboard.R : {
-				world.reset();
-				test();
-			}
-
-//			case Keyboard.R : world.reset();
+			case Keyboard.R : world.reset();
 			case Keyboard.D : {
 				debugging = !debugging;
 				debugRenderer.clear();

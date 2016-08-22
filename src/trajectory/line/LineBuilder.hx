@@ -1,8 +1,8 @@
-package traectory.line;
+package trajectory.line;
 import data.Speed;
 import math.Range;
 import math.Rect;
-class LineBuilder implements TraectoryBuilder{
+class LineBuilder implements TrajectoryBuilder{
 	public function new() {
 	}
 
@@ -21,7 +21,7 @@ class LineBuilder implements TraectoryBuilder{
 
 
 	var bias:Float = 150;
-	public function roll():Traectory {
+	public function roll():Trajectory {
 		x1 = worldRect.x0 + Math.random() * worldRect.width();
 		x2 = clamp(x1 + Math.random() * (bias) - bias / 2, worldRect.x0, worldRect.x1);
 		return buildLine(x1,x2,t,worldRect,speed.value,odd);
@@ -29,7 +29,7 @@ class LineBuilder implements TraectoryBuilder{
 
 
 
-	public static inline function buildLine(x1:Float,x2:Float, t0:Float, worldRect:Rect,s:Float,odd:Bool):Traectory {
+	public static inline function buildLine(x1:Float,x2:Float, t0:Float, worldRect:Rect,s:Float,odd:Bool):Trajectory {
 		var xSign = x1 > x2 ? -1 : 1;
 		var ySign = odd ? 1 : -1;
 		var dx = x2 - x1;
@@ -43,7 +43,7 @@ class LineBuilder implements TraectoryBuilder{
 		var pathLen = Math.sqrt(dxSq + dySq);
 		var period = new Range(t0, t0 + pathLen / s);
 
-		var line = new LineTraectory(x1, odd ? worldRect.y0 : worldRect.y1, xSign * Math.sqrt(sxSq), ySign * Math.sqrt(sySq), period);
+		var line = new LineTrajectory(x1, odd ? worldRect.y0 : worldRect.y1, xSign * Math.sqrt(sxSq), ySign * Math.sqrt(sySq), period);
 
 		return line;
 	}

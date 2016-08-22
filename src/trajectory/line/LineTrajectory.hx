@@ -1,6 +1,6 @@
-package traectory.line;
+package trajectory.line;
 import math.Range;
-class LineTraectory implements Traectory {
+class LineTrajectory implements Trajectory {
 	public var period:Range;
 	public var startX:Float;
 	public var startY:Float;

@@ -3,7 +3,7 @@ import math.Rect;
 import renderer.DebugRenderer;
 import info.Stats;
 import data.UnitRadius;
-import traectory.Traectory;
+import trajectory.Trajectory;
 class DebugSystem {
 	@inject public var stats:Stats;
 	@inject public var world:World;
@@ -15,19 +15,19 @@ class DebugSystem {
 	inline static var visStep = 0.25;
 
 
-	var detected:Array<Traectory> = [];
+	var detected:Array<Trajectory> = [];
 
 	public function update(t:Float):Void {
 		debugRenderer.clear();
 		debugRenderer.drawRect(worldRect);
 		var i = 0;
-		var traectories = world.traectories;
-		while (i < traectories.length) {
-			var tr = traectories[i];
+		var trajectories = world.trajectories;
+		while (i < trajectories.length) {
+			var tr = trajectories[i];
 			drawPath(tr, t);
 			var j:Int = i + 1;
-			while (j < traectories.length) {
-				var tr2 = traectories[j];
+			while (j < trajectories.length) {
+				var tr2 = trajectories[j];
 				var dx = tr2.getX(t) - tr.getX(t);
 				var dy = tr2.getY(t) - tr.getY(t);
 				var intersects:Bool = (dx * dx + dy * dy) < (unitRadius.value * unitRadius.value * 4);
@@ -47,7 +47,7 @@ class DebugSystem {
 		}
 	}
 
-	private inline function drawPath(tr:Traectory, t0:Float):Void {
+	private inline function drawPath(tr:Trajectory, t0:Float):Void {
 		var t = t0 - periodforVis;
 
 		while (t < t0 + periodforVis - visStep) {

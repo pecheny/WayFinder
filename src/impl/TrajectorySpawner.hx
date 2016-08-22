@@ -1,10 +1,10 @@
 package impl;
-import traectory.TraectoryBuilder;
+import trajectory.TrajectoryBuilder;
 import info.Stats;
-import traectory.Traectory;
-class TraectorySpawner {
+import trajectory.Trajectory;
+class TrajectorySpawner {
 	@inject public var world:World;
-	@inject public var traectoryBuilder:TraectoryBuilder;
+	@inject public var trajectoryBuilder:TrajectoryBuilder;
 	@inject public var stats:Stats;
 
 	inline static var SEARCH_ITER_LIMIT:Int = 50;
@@ -14,17 +14,17 @@ class TraectorySpawner {
 
 	var odd:Bool;
 
-	public function choose(t:Float):Null<Traectory> {
-		traectoryBuilder.init(t, odd);
+	public function choose(t:Float):Null<Trajectory> {
+		trajectoryBuilder.init(t, odd);
 		var i = 0;
-		var tr = traectoryBuilder.roll();
+		var tr = trajectoryBuilder.roll();
 		while (!world.isValid(tr)) {
 			i++;
 			if (i > SEARCH_ITER_LIMIT) {
 				stats.searchesFailedCount++;
 				return null;
 			}
-			tr = traectoryBuilder.roll();
+			tr = trajectoryBuilder.roll();
 		}
 		stats.searchIterations = i;
 		odd = !odd;

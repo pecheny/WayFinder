@@ -23,7 +23,7 @@ class CircleRenderer extends Sprite implements ItemRenderer {
 
 	public function update(t:Float):Void {
 		clear();
-		for (tr in world.traectories) {
+		for (tr in world.trajectories) {
 			render(tr.getX(t), tr.getY(t));
 		}
 

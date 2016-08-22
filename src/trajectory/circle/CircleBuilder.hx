@@ -1,8 +1,8 @@
-package traectory.circle;
+package trajectory.circle;
 import math.Range;
 import math.Rect;
 import data.Speed;
-class CircleBuilder implements TraectoryBuilder {
+class CircleBuilder implements TrajectoryBuilder {
 	public function new() { }
 	@inject public var worldRect:Rect;
 	@inject public var speed:Speed;
@@ -20,7 +20,7 @@ class CircleBuilder implements TraectoryBuilder {
 
 	var bias:Float = 150;
 
-	public function roll():Traectory {
+	public function roll():Trajectory {
 		var r = worldRect.width();
 		var diagAng = Math.asin(worldRect.height() / r);
 		var horOffsetLimit = r - r * Math.cos(diagAng);
@@ -40,7 +40,7 @@ class CircleBuilder implements TraectoryBuilder {
 		(Math.PI * 3 / 2) + Math.asin( (worldRect.height() - yInWorldRectSpace) / r);
 //		trace(startAngle);
 
-		var tr = new CircleTraectory(x0, y0, r, angSpeed, startAngle, period);
+		var tr = new CircleTrajectory(x0, y0, r, angSpeed, startAngle, period);
 		tr.period.t2 = odd ?
 		tr.getTbyY(worldRect.y1):
 		tr.getTbyY(worldRect.y0);

@@ -3,12 +3,12 @@ import renderer.DebugRenderer;
 import data.Speed;
 import data.UnitRadius;
 import math.Range;
-import traectory.Traectory;
+import trajectory.Trajectory;
 /**
 * Определяет, столкнутся ли 2 объекта, летящие по заданным траекториям.
 * Для корректной работы требуется, чтобы движение вдоль y-компонента скорости не меняла знак.
 **/
-class TraectoryResolver {
+class TrajectoryResolver {
 	@inject public var unitRadius:UnitRadius;
 	@inject public var speed:Speed;
 	@inject public var debugRenderer:DebugRenderer;
@@ -22,7 +22,7 @@ class TraectoryResolver {
 		timeStep =  unitRadius.value / speed.value;
 	}
 
-	public function cross(tra:Traectory, trb:Traectory):Bool {
+	public function cross(tra:Trajectory, trb:Trajectory):Bool {
 		var sharedTime = tra.period.cross(trb.period);
 		if (sharedTime == null) return false;
 //      предположим, что направление вдоль y не может меняться (не будем ориентироваться на синусоиды с уклоном оси более 45)

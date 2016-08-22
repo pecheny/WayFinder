@@ -1,6 +1,6 @@
-package traectory.circle;
+package trajectory.circle;
 import math.Range;
-class CircleTraectory implements Traectory {
+class CircleTrajectory implements Trajectory {
 	public var period:Range;
 	public var centerX:Float;
 	public var centerY:Float;
