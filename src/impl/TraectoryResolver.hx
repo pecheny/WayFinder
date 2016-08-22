@@ -42,11 +42,11 @@ class TraectoryResolver {
 			t = t2;
 			t2 = tt;
 		}
+		var i = 0;
 		while (t < t2) {
 			var xRangeA = new Range(tra.getX(t) - unitRadius.value, tra.getX(t) + unitRadius.value);
 			var y = tra.getY(t);
 			var xRangeB = new Range(trb.getX(t) - unitRadius.value, trb.getX(t) + unitRadius.value);
-			y = trb.getY(t);
 			var sharedX = xRangeA.cross(xRangeB);
 			if (sharedX != null) {
 				return true;

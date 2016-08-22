@@ -1,6 +1,10 @@
 package;
 
 
+import traectory.RandomTraectoryBuilder;
+import math.Range;
+import traectory.circle.CircleTraectory;
+import traectory.circle.CircleBuilder;
 import renderer.DebugRenderer;
 import info.StatsRenderer;
 import traectory.TraectoryBuilder;
@@ -8,8 +12,6 @@ import info.Stats;
 import impl.TraectoryResolver;
 import openfl.StatsRendererOFL;
 import flash.ui.Keyboard;
-import math.Range;
-import traectory.line.LineTraectory;
 import data.Speed;
 import impl.TraectorySpawner;
 import impl.DebugSystem;
@@ -47,8 +49,10 @@ class Main extends Sprite {
 		injector = new Injector();
 		var radius = 5;
 		injector.mapValue(UnitRadius, new UnitRadius(radius));
-		injector.mapValue(Speed, new Speed(60));
-		worldRect = new Rect(radius, -radius, stage.stageWidth - radius * 2, stage.stageHeight + radius);
+		injector.mapValue(Speed, new Speed(80));
+//		worldRect = new Rect(radius, -radius, stage.stageWidth - radius * 2, stage.stageHeight + radius);
+		worldRect = new Rect(100, 100, 700, 500);
+//		worldRect = new Rect(200,200, 280, 260);
 		debugRenderer = new DebugRendererOFL();
 		injector.mapValue(DebugRenderer, debugRenderer);
 		var info = new StatsRendererOFL();
@@ -61,7 +65,13 @@ class Main extends Sprite {
 		injector.mapValue(World, world);
 		injector.mapValue(Rect, worldRect);
 		injector.mapValue(ItemRenderer, unitRenderer);
-		injector.mapSingletonOf(TraectoryBuilder, LineBuilder);
+
+		var builder = new RandomTraectoryBuilder();
+		builder.addBuilder(injector.instantiate(LineBuilder));
+		builder.addBuilder(injector.instantiate(CircleBuilder));
+
+
+		injector.mapValue(TraectoryBuilder, builder);
 		debugSystem = injector.instantiate(DebugSystem);
 		traectorySpawner = injector.instantiate(TraectorySpawner);
 		unitRenderer = injector.instantiate(CircleRenderer);
@@ -72,7 +82,16 @@ class Main extends Sprite {
 
 		stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, keyboardHandler);
+		test();
+	}
 
+	function test():Void {
+//		var c = new CircleTraectory(worldRect.width() / 2, worldRect.height() / 2, worldRect.width() / 3, 0.5, new Range(0, 10));
+		var circleBuilder:CircleBuilder = injector.instantiate(CircleBuilder);
+
+//		world.add(new CircleTraectory(  851.3605526889122, 113.17766010761261, 600, 0.13333333333333333, new Range (40.472, 45.891503047781534)));
+//		world.add(new CircleTraectory(   997.3839691679549, 475.2997713163495, 600, -0.13333333333333333, new Range (45.708, 51.08512804430361)));
+//		world.add(l);
 	}
 
 
@@ -111,7 +130,7 @@ class Main extends Sprite {
 		switch (e.keyCode) {
 			case Keyboard.SPACE : world.add(traectorySpawner.choose(t));
 			case Keyboard.MINUS : {
-				delay = Math.max(delay - 0.01, 0.01);
+				delay = Math.max(delay - 0.001, 0.001);
 				stats.delay = delay;
 			}
 			case Keyboard.EQUAL : {
@@ -120,7 +139,12 @@ class Main extends Sprite {
 			}
 
 			case Keyboard.P : paused = !paused;
-			case Keyboard.R : world.reset();
+			case Keyboard.R : {
+				world.reset();
+				test();
+			}
+
+//			case Keyboard.R : world.reset();
 			case Keyboard.D : {
 				debugging = !debugging;
 				debugRenderer.clear();
