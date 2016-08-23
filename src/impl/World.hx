@@ -33,12 +33,9 @@ class World {
 	public function isValid(tr:Trajectory):Bool {
 		for (other in trajectories) {
 			if (traectoryResolver.cross(tr, other)) {
-//				trace("cross A: " + tr);
-//				trace("cross B: " + other);
 				return false;
 			}
 		}
-//		trace("doesn't cross");
 		return true;
 	}
 

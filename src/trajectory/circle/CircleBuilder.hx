@@ -33,12 +33,9 @@ class CircleBuilder implements TrajectoryBuilder {
 		var period = new Range(t, t + 10);
 		var yInWorldRectSpace = y0 - worldRect.y0;
 
-//		trace("odd " + (Math.PI + Math.acos((yInWorldRectSpace) / r)));
-//		trace("even " + ((Math.PI * 3 / 2) + Math.asin((worldRect.height() - yInWorldRectSpace) / r)));
 		var startAngle = odd ?
 		Math.PI + Math.acos((yInWorldRectSpace) / r) :
 		(Math.PI * 3 / 2) + Math.asin( (worldRect.height() - yInWorldRectSpace) / r);
-//		trace(startAngle);
 
 		var tr = new LeftArcTrajectory(x0, y0, r, angSpeed, startAngle, period);
 		tr.period.t2 = odd ?

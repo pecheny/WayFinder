@@ -28,7 +28,6 @@ class LineTrajectory implements Trajectory {
 	}
 
 	public function toString():String {
-//		return "Line : [ x: " + startX  + " y: " + startY  + " sx " + speedX  + " sy: " + speedY  + " " + period  + " ]";
 		return "Line : (  " + startX  + ", " + startY  + ", " + speedX  + ", " + speedY  + ", " + period  + " ]";
 	}
 
